@@ -59,7 +59,7 @@ System.out.println(String.format("Bonjour %s, tu as %d ans.", nom, age));
 //                                         %s = String, %d = entier (decimal)
 ```
 
-### Ta tâche
+### La tâche
 
 Crée `src/main/java/org/yugiohproject/Main.java` avec un point d'entrée valide.
 Au démarrage, le programme doit afficher dans la console :
