@@ -22,6 +22,8 @@ Lis-les, comprends le principe, puis applique-le à ton domaine.
 > git checkout -b qle/td-01-card-catalog
 > ```
 
+![img.png](images/new_branch_img.png)
+
 ---
 
 ## Étape 0 — Le point d'entrée
