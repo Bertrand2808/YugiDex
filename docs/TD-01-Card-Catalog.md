@@ -160,7 +160,7 @@ public String toString() {
 
 ### La tâche
 
-Crée `src/main/java/org/yugiohproject/card/Card.java`.
+Crée `src/main/java/org/yugiohproject/card/domain/Card.java`.
 
 Une carte Yu-Gi-Oh possède ces informations (d'après l'API YGOProDeck) :
 
