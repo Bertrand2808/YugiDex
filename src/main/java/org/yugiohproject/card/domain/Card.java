@@ -1,4 +1,4 @@
-package org.yugiohproject.domain.card;
+package org.yugiohproject.card.domain;
 
 import java.util.Objects;
 
@@ -12,15 +12,15 @@ import java.util.Objects;
  */
 public class Card {
 
-    private int id;
-    private String name;
-    private String desc;
-    private Integer atk;
-    private Integer def;
-    private Integer level;
-    private String attribute;
-    private String race;
-    private String type;
+    private final int id;
+    private final String name;
+    private final String desc;
+    private final CardType type;
+    private final Integer atk;
+    private final Integer def;
+    private final Integer level;
+    private final CardAttribute attribute;
+    private final String race;
 
 
     /**
@@ -39,28 +39,45 @@ public class Card {
             int id,
             String name,
             String desc,
+            CardType type,
             Integer atk,
             Integer def,
             Integer level,
-            String attribute,
-            String race,
-            String type) {
+            CardAttribute attribute,
+            String race) {
         this.id = id;
         this.name = Objects.requireNonNull(name, "name is required");
         this.desc = Objects.requireNonNull(desc, "desc is required");
+        this.type = Objects.requireNonNull(type, "type is required");
         this.atk = atk;
         this.def = def;
         this.level = level;
         this.attribute = attribute;
         this.race = race;
-        this.type = Objects.requireNonNull(type, "type is required");
 
-        // Validation métier légère
+        // Validation métier de base
+        if (type.isMonster()) {
+            if (attribute == null) {
+                throw new IllegalArgumentException("Un monstre doit avoir un attribut");
+            }
+            if (level == null || level < 1 || level > 12) {
+                throw new IllegalArgumentException("Niveau invalide pour un monstre : " + level);
+            }
+        } else {
+            // Magie / Piège
+            if (attribute != null) {
+                throw new IllegalArgumentException("Les cartes Magie/Piège n'ont pas d'attribut");
+            }
+            if (atk != null || def != null || level != null) {
+                throw new IllegalArgumentException("Les cartes Magie/Piège n'ont ni ATK, ni DEF, ni niveau");
+            }
+        }
+
         if (atk != null && atk < 0) {
-            throw new IllegalArgumentException("ATK cannot be negative: " + atk);
+            throw new IllegalArgumentException("ATK ne peut pas être négative");
         }
         if (def != null && def < 0) {
-            throw new IllegalArgumentException("DEF cannot be negative: " + def);
+            throw new IllegalArgumentException("DEF ne peut pas être négative");
         }
     }
 
@@ -74,7 +91,7 @@ public class Card {
         return name;
     }
 
-    public String getType() {
+    public CardType getType() {
         return type;
     }
 
@@ -94,7 +111,7 @@ public class Card {
         return level;
     }
 
-    public String getAttribute() {
+    public CardAttribute getAttribute() {
         return attribute;
     }
 
@@ -107,22 +124,25 @@ public class Card {
      */
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder(name);
+        var sb = new StringBuilder(name);
 
         if (attribute != null) {
-            sb.append(" [").append(attribute).append("]");
+            sb.append(" [").append(attribute).append("]");   // ← affiche TÉNÈBRES grâce au toString()
         }
         if (level != null) {
             sb.append(" ★").append(level);
         }
         if (atk != null) {
-            sb.append(" ATK:").append(atk);
+            sb.append(" ATK/").append(atk);
         }
         if (def != null) {
-            sb.append(" DEF:").append(def);
+            sb.append(" DEF/").append(def);
         }
         if (race != null) {
             sb.append(" (").append(race).append(")");
+        }
+        if (type != null) {
+            sb.append(" — ").append(type.getLabelFrançais());
         }
 
         return sb.toString();
