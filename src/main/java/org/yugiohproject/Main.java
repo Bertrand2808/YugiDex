@@ -35,7 +35,7 @@ public class Main {
         );
 
         var exodia = new Card(
-                33396948, // vrai id d'Exodia Head
+                33396948,
                 "Exodia the Forbidden One",
                 "...",
                 CardType.EFFECT,
@@ -46,6 +46,6 @@ public class Main {
 
         System.out.println(darkMagician);
         System.out.println(potOfGreed);
-        System.out.println(exodia.getName() + " — attribut : " + exodia.getAttribute());
+        System.out.println(exodia.name() + " — attribut : " + exodia.attribute());
     }
 }
