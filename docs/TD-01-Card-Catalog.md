@@ -182,6 +182,15 @@ Ta classe doit avoir :
 3. Un getter pour chaque champ
 4. Un `toString()` lisible (tu choisis le format)
 
+> **Première règle d’Uncle Bob :**
+Tout objet **DOIT** savoir se raconter de manière lisible → implémente `toString()` dès que possible.
+
+> **Tips pour générer les Getter et les Setter** : 
+> Clique droit sur le nom de la classe -> Generate
+![img.png](images/generate_getter_setter_img.png)
+> Séléctionner tous les attributs et cliquer sur générer 
+![img.png](images/select_getter_setter_generation_img.png)
+
 **Attention à la javadoc**
 
 Exemple de javadoc :
@@ -232,6 +241,9 @@ ATK de Pot of Greed : null
 | Formater le code | `Ctrl+Alt+L` | `Cmd+Alt+L` |
 | Voir les paramètres d'une méthode | `Ctrl+P` dans les parenthèses | `Cmd+P` |
 | Aller à la déclaration | `Ctrl+B` ou `F12` | `Cmd+B` |
+
+
+**Ne pas oublier de commit à la fin de l'étape 1**
 
 ---
 
