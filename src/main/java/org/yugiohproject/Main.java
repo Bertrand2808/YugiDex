@@ -1,48 +1,28 @@
 package org.yugiohproject;
 
 import org.yugiohproject.domain.card.Card;
-import org.yugiohproject.domain.card.Types;
-import org.yugiohproject.service.MonsterCardService;
 
-//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
-// click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
+/**
+ * Main class of the YugiDex project
+ *
+ * @author bertrandrenaudin
+ */
 public class Main {
 
-    // TODO : 1. Regarder l'API (les champs des cartes que retourne l'API https://ygoprodeck.com/api-guide/)
-    // TODO : 2. Créer une classe domain.Card avec les attributs que l'ont veut récupérer de l'API (Name, Type, Description, Atk, Def etc )
-    // TODO : 3. Créer une classe api.CardClient qui fait un appel externe à l'API
-    // TODO : 4. Créer une classe controller.card.CardController qui fait un appel GET pour récupérer une seule (pour le moment) carte
-    // et créé une nouvelle Card et l'affiche en console
-
-    static MonsterCardService monsterCardService;
-
     static void main() {
-        // variables
-        Integer atk = 2500;
-        Integer def = 1000;
+        System.out.println("=== YugiDex démarré ===");
+        // nouvelles cartes
+        Card darkMagicien = new Card(
+                89631139, "Dark Magician", "The ultimate wizard in terms of attack and defense.", 2500, 2100, 7,
+                "DARK", "SpellCaster", "Effect Monster");
+        Card potOfGreed = new Card(
+                55144522, "Pot of Greed", "Draw 2 cards", null, null, null,
+                null, null, "Normal Spell");
 
-        Card newCard = new Card("Magicien Sombre", 2500, 1500, Types.MAGIQUE);
-        Card newCard2 = new Card("Magicien pas sombre", 2500, 1500, Types.MONSTRE);
-
-        IO.println("Carte : " + newCard.name + " - Attack : " + newCard.atk);
-        newCard.afficher();
-
-        MonsterCardService.attaquer(newCard,newCard2);
-
-    }
-
-    /**
-     * Calculate Power of a monster
-     * @param attack the atck of the monster
-     * @param defense the defense of the monster
-     * @return  the poweeeer
-     */
-    public static Integer calculPuissance(Integer attack, Integer defense) {
-        return attack + defense;
-    }
-
-    // surcharge
-    public static Integer calculPuissance(Integer attack, Integer defense, int boost) {
-        return (attack + defense) * boost;
+        // Afficher les cartes
+        System.out.println(darkMagicien);
+        System.out.println(potOfGreed.getName());
+        System.out.println("ATK de " + darkMagicien.getName() + " : " + darkMagicien.getAtk());
+        System.out.println("ATK de " + potOfGreed.getName() + " : " + potOfGreed.getAtk());
     }
 }
