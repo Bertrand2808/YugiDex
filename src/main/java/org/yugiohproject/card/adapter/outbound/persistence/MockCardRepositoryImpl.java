@@ -120,8 +120,10 @@ public class MockCardRepositoryImpl implements CardRepository{
     }
 
     @Override
-    public List<Card> findByAttribute(CardAttribute attribute){
-        return cards.stream().filter(card -> card.attribute().equals(attribute)).collect(Collectors.toList());
+    public List<Card> findByAttribute(CardAttribute attribute) {
+        return cards.stream()
+                .filter(card -> card.attribute() != null && card.attribute().equals(attribute))
+                .collect(Collectors.toList());
     }
 
 

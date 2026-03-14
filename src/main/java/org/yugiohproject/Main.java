@@ -2,8 +2,12 @@ package org.yugiohproject;
 
 import org.yugiohproject.card.adapter.outbound.persistence.CardRepository;
 import org.yugiohproject.card.adapter.outbound.persistence.MockCardRepositoryImpl;
+import org.yugiohproject.card.application.CardService;
 import org.yugiohproject.card.domain.Card;
+import org.yugiohproject.card.domain.CardType;
+
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 /**
@@ -14,17 +18,24 @@ import java.util.Optional;
 public class Main {
 
     public static void main(String[] args) {
-        System.out.println("=== YugiDex démarré ===\n");
-        // Instantiate the repository
-        CardRepository repository = new MockCardRepositoryImpl();
-        List<Card> cardList = repository.findAll();
-        System.out.println(cardList.toArray().length);
-        Optional<Card> darkMagician = repository.findById(89631139);
-        System.out.println("GREP darkMagician by id : " + darkMagician.toString());
-        List<Card> dragonCardList = repository.findByName("Dragon");
-        System.out.println("Grep dragon cards by partial name :");
-        for (Card card : dragonCardList) {
-            System.out.println(card);
-        }
+        CardService service = new CardService(new MockCardRepositoryImpl());
+
+        System.out.println("=== Recherche \"Dragon\" ===");
+        List<Card> dragons = service.findByName("Dragon");
+        System.out.println(dragons.size() + " résultats trouvés");
+        dragons.forEach(c ->
+                System.out.println(c.name() + " [" + c.attribute() + "] ATK:" + c.atk())
+        );
+
+        System.out.println("\n=== Top 3 ATK ===");
+        service.getTop3Monsters().forEach(c ->
+                System.out.printf("  %s — %d%n", c.name(), c.atk())
+        );
+
+        System.out.println("\n=== Statistiques ===");
+        Map<CardType, Long> stats = service.getStatisticsByTypes();
+        stats.forEach((type, count) ->
+                System.out.printf("%s : %d cartes%n", type, count)
+        );
     }
 }
