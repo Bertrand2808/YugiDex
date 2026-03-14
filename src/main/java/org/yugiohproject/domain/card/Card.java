@@ -1,34 +1,49 @@
 package org.yugiohproject.domain.card;
 
-public class Card {
+public record Card (
 
     // Attributs
-    public String name;
-    public Integer atk;
-    public Integer def;
-    public Types type;
+     int id,
+     String name,
+     Integer rank,
+     Attribute attribut,
+     Integer atk,
+     Integer def,
+     Types type
+)
 
-    /**
-     * Constructor
-     * @param name
-     * @param atk
-     * @param def
-     */
-    public Card(String name, Integer atk, Integer def, Types type) {
-        this.name = name;
-        this.atk = atk;
-        this.def = def;
-        this.type = type;
+/**
+ * Représente une carte Yu-Gi-Oh.
+ * Un record immuable contenant toutes les informations d'une carte.
+ *
+ * @param ID l'id de la carte
+ * @param name le nom de la carte, ne peut pas être null ou vide
+ * @param rank le rang de la carte (nombre d'étoiles)
+ * @param attribut l'attribut de la carte (DARK, LIGHT, FIRE...)
+ * @param atk les points d'attaque de la carte
+ * @param def les points de défense de la carte
+ * @param type le type de la carte
+ * @throws IllegalArgumentException si le nom est null ou vide
+ */
+
+    {
+
+    public Card {
+        if (name == null || name.isBlank()) {
+            try {
+                throw new IllegalAccessException("La carte à besoin d'un nom nullos va");
+            } catch (IllegalAccessException e) {
+                throw new RuntimeException(e);
+            }
+        }
     }
 
-    public Card() {
 
-    }
 
     // ── MÉTHODES ──────────────────────────
     public void afficher() {
         System.out.println(name + " — ATK: " + atk + " / DEF: " + def);
     }
+
+
 }
-
-
